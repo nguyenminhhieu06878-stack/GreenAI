@@ -56,7 +56,7 @@ connectDatabase()
 // Start server (for Railway, Render, etc.)
 const PORT = config.port || process.env.PORT || 3000
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`)
+  console.log(`🚀 GreenEnergy AI Server running on port ${PORT}`)
   console.log(`📝 Environment: ${config.nodeEnv}`)
   console.log(`📁 Upload directory: ${config.upload.dir}`)
   console.log(`💬 Support chat using HTTP polling`)
