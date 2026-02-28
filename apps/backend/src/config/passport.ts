@@ -60,6 +60,8 @@ export const configurePassport = () => {
     });
     
     console.log('✅ Google OAuth configured successfully');
+    console.log('   Client ID:', process.env.GOOGLE_CLIENT_ID?.substring(0, 20) + '...');
+    console.log('   Callback URL:', process.env.GOOGLE_CALLBACK_URL);
   } else {
     console.log('⚠️  Google OAuth not configured - Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env');
     console.log('   See GOOGLE_OAUTH_SETUP.md for setup instructions');
