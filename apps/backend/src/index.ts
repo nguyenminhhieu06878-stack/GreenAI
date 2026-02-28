@@ -53,15 +53,14 @@ app.use(errorHandler)
 // Connect to database
 connectDatabase()
 
-// For local development
-if (config.nodeEnv !== 'production') {
-  app.listen(config.port, () => {
-    console.log(`🚀 Server running on http://localhost:${config.port}`)
-    console.log(`📝 Environment: ${config.nodeEnv}`)
-    console.log(`📁 Upload directory: ${config.upload.dir}`)
-    console.log(`💬 Support chat using HTTP polling`)
-  })
-}
+// Start server (for Railway, Render, etc.)
+const PORT = config.port || process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`)
+  console.log(`📝 Environment: ${config.nodeEnv}`)
+  console.log(`📁 Upload directory: ${config.upload.dir}`)
+  console.log(`💬 Support chat using HTTP polling`)
+})
 
-// Export for Vercel serverless
+// Export for serverless platforms
 export default app
