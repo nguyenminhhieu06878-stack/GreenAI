@@ -109,7 +109,7 @@ export class AIService {
       totalConsumption = (latestReading.value || 0) - (earliestReading.value || 0)
       
       // Recalculate cost based on actual consumption
-      const CalculationService = (await import('./calculation.service')).CalculationService
+      const CalculationService = (await import('./calculation.service.js')).CalculationService
       totalCost = CalculationService.calculateCost(totalConsumption)
     } else if (readings.length === 1) {
       // Only one reading, use its consumption
