@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import passport from 'passport'
 import { AuthRequest } from '../middleware/auth.js'
-import { config } from '../config.js'
+import { config } from '../config/index.js'
 import User from '../models/User.model.js'
 
 export const register = async (req: Request, res: Response) => {
