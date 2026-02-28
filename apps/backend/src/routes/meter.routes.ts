@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { uploadMeterImage, addManualReading, getReadings, updateReading, deleteReading } from '../controllers/meter.controller'
-import { authenticate } from '../middleware/auth'
-import { upload } from '../middleware/upload'
+import { uploadMeterImage, addManualReading, getReadings, updateReading, deleteReading } from '../controllers/meter.controller.js'
+import { authenticate } from '../middleware/auth.js'
+import { upload } from '../middleware/upload.js'
 
 const router = Router()
 

@@ -2,9 +2,9 @@ import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import passport from 'passport'
-import { AuthRequest } from '../middleware/auth'
-import { config } from '../config'
-import User from '../models/User.model'
+import { AuthRequest } from '../middleware/auth.js'
+import { config } from '../config.js'
+import User from '../models/User.model.js'
 
 export const register = async (req: Request, res: Response) => {
   try {

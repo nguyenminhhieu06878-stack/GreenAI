@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { createPaymentLink, verifyPaymentWebhook, getPaymentInfo } from '../services/payos.service';
-import User from '../models/User.model';
-import Subscription from '../models/Subscription.model';
-import Voucher from '../models/Voucher.model';
-import PendingPayment from '../models/PendingPayment.model';
+import { createPaymentLink, verifyPaymentWebhook, getPaymentInfo } from '../services/payos.service.js';
+import User from '../models/User.model.js';
+import Subscription from '../models/Subscription.model.js';
+import Voucher from '../models/Voucher.model.js';
+import PendingPayment from '../models/PendingPayment.model.js';
 
 // Create payment link
 export const createPayment = async (req: Request, res: Response) => {

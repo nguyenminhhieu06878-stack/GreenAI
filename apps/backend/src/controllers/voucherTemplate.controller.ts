@@ -1,7 +1,7 @@
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
-import VoucherTemplate from '../models/VoucherTemplate.model'
-import Voucher from '../models/Voucher.model'
+import { AuthRequest } from '../middleware/auth.js'
+import VoucherTemplate from '../models/VoucherTemplate.model.js'
+import Voucher from '../models/Voucher.model.js'
 
 // Get all voucher templates
 export const getAllTemplates = async (req: AuthRequest, res: Response) => {

@@ -1,11 +1,11 @@
 import express from 'express';
-import { authenticate } from '../middleware/auth';
+import { authenticate } from '../middleware/auth.js';
 import {
   createPayment,
   handlePaymentWebhook,
   checkPaymentStatus,
   validateVoucher
-} from '../controllers/payment.controller';
+} from '../controllers/payment.controller.js';
 
 const router = express.Router();
 

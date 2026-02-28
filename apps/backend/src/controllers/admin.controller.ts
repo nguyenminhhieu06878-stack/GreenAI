@@ -1,9 +1,9 @@
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
-import User from '../models/User.model'
-import Room from '../models/Room.model'
-import Subscription from '../models/Subscription.model'
-import MeterReading from '../models/MeterReading.model'
+import { AuthRequest } from '../middleware/auth.js'
+import User from '../models/User.model.js'
+import Room from '../models/Room.model.js'
+import Subscription from '../models/Subscription.model.js'
+import MeterReading from '../models/MeterReading.model.js'
 
 // Get system statistics for dashboard
 export const getSystemStats = async (req: AuthRequest, res: Response) => {

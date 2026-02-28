@@ -1,11 +1,11 @@
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
-import MeterReading from '../models/MeterReading.model'
-import User from '../models/User.model'
-import Room from '../models/Room.model'
-import { CalculationService } from '../services/calculation.service'
-import { OCRService } from '../services/ocr.service'
-import { SubscriptionService } from '../services/subscription.service'
+import { AuthRequest } from '../middleware/auth.js'
+import MeterReading from '../models/MeterReading.model.js'
+import User from '../models/User.model.js'
+import Room from '../models/Room.model.js'
+import { CalculationService } from '../services/calculation.service.js'
+import { OCRService } from '../services/ocr.service.js'
+import { SubscriptionService } from '../services/subscription.service.js'
 
 export const uploadMeterImage = async (req: AuthRequest, res: Response) => {
   try {

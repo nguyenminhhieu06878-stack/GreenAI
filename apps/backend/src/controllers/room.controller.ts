@@ -1,9 +1,9 @@
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
-import Room from '../models/Room.model'
-import User from '../models/User.model'
-import MeterReading from '../models/MeterReading.model'
-import { SubscriptionService } from '../services/subscription.service'
+import { AuthRequest } from '../middleware/auth.js'
+import Room from '../models/Room.model.js'
+import User from '../models/User.model.js'
+import MeterReading from '../models/MeterReading.model.js'
+import { SubscriptionService } from '../services/subscription.service.js'
 
 // Create a new room (landlord only)
 export const createRoom = async (req: AuthRequest, res: Response) => {

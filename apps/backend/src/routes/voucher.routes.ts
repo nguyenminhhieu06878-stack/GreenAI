@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { randomVoucher } from '../controllers/voucherTemplate.controller'
-import { authenticate } from '../middleware/auth'
+import { randomVoucher } from '../controllers/voucherTemplate.controller.js'
+import { authenticate } from '../middleware/auth.js'
 
 const router = Router()
 

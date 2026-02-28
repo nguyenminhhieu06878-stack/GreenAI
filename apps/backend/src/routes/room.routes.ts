@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { authenticate } from '../middleware/auth'
+import { authenticate } from '../middleware/auth.js'
 import {
   createRoom,
   getRooms,
@@ -8,7 +8,7 @@ import {
   assignTenant,
   removeTenant,
   deleteRoom
-} from '../controllers/room.controller'
+} from '../controllers/room.controller.js'
 
 const router = Router()
 

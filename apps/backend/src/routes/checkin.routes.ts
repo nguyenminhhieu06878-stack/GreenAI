@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { getCheckInStatus, checkIn, getVouchers, validateVoucher, useVoucher } from '../controllers/checkin.controller'
-import { authenticate } from '../middleware/auth'
+import { getCheckInStatus, checkIn, getVouchers, validateVoucher, useVoucher } from '../controllers/checkin.controller.js'
+import { authenticate } from '../middleware/auth.js'
 
 const router = Router()
 

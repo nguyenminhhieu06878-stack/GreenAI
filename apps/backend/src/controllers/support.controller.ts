@@ -1,7 +1,7 @@
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
-import SupportMessage from '../models/SupportMessage.model'
-import { SubscriptionService } from '../services/subscription.service'
+import { AuthRequest } from '../middleware/auth.js'
+import SupportMessage from '../models/SupportMessage.model.js'
+import { SubscriptionService } from '../services/subscription.service.js'
 
 export const checkSupportAccess = async (req: AuthRequest, res: Response) => {
   try {

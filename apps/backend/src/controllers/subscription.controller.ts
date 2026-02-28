@@ -1,8 +1,8 @@
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
-import Subscription from '../models/Subscription.model'
-import { SubscriptionService, PLAN_LIMITS } from '../services/subscription.service'
-import User from '../models/User.model'
+import { AuthRequest } from '../middleware/auth.js'
+import Subscription from '../models/Subscription.model.js'
+import { SubscriptionService, PLAN_LIMITS } from '../services/subscription.service.js'
+import User from '../models/User.model.js'
 
 // Get all subscriptions (admin only)
 export const getAllSubscriptions = async (req: AuthRequest, res: Response) => {

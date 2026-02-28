@@ -4,11 +4,11 @@ import {
   analyzeConsumption,
   detectAnomalies,
   getSavingsTips
-} from '../controllers/ai.controller'
-import { authenticate } from '../middleware/auth'
-import { SubscriptionService } from '../services/subscription.service'
+} from '../controllers/ai.controller.js'
+import { authenticate } from '../middleware/auth.js'
+import { SubscriptionService } from '../services/subscription.service.js'
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
+import { AuthRequest } from '../middleware/auth.js'
 
 const router = Router()
 

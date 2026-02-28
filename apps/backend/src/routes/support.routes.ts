@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { authenticate } from '../middleware/auth'
-import { requireAdmin } from '../middleware/adminAuth'
+import { authenticate } from '../middleware/auth.js'
+import { requireAdmin } from '../middleware/adminAuth.js'
 import {
   checkSupportAccess,
   getMessages,
@@ -10,7 +10,7 @@ import {
   getChatMessages,
   getNewChatMessages,
   replyToUser
-} from '../controllers/support.controller'
+} from '../controllers/support.controller.js'
 
 const router = Router()
 

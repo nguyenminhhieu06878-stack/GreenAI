@@ -1,6 +1,6 @@
-import Subscription from '../models/Subscription.model'
-import User from '../models/User.model'
-import Room from '../models/Room.model'
+import Subscription from '../models/Subscription.model.js'
+import User from '../models/User.model.js'
+import Room from '../models/Room.model.js'
 
 // Define plan limits
 export const PLAN_LIMITS = {

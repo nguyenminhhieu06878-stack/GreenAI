@@ -1,7 +1,7 @@
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
-import { AIService } from '../services/ai.service'
-import { SubscriptionService } from '../services/subscription.service'
+import { AuthRequest } from '../middleware/auth.js'
+import { AIService } from '../services/ai.service.js'
+import { SubscriptionService } from '../services/subscription.service.js'
 
 // Chat with AI
 export const chat = async (req: AuthRequest, res: Response) => {

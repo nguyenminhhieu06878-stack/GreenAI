@@ -1,7 +1,7 @@
 import Groq from 'groq-sdk'
-import MeterReading from '../models/MeterReading.model'
-import User from '../models/User.model'
-import Room from '../models/Room.model'
+import MeterReading from '../models/MeterReading.model.js'
+import User from '../models/User.model.js'
+import Room from '../models/Room.model.js'
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY || ''

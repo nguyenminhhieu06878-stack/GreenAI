@@ -1,7 +1,7 @@
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
-import CheckIn from '../models/CheckIn.model'
-import Voucher from '../models/Voucher.model'
+import { AuthRequest } from '../middleware/auth.js'
+import CheckIn from '../models/CheckIn.model.js'
+import Voucher from '../models/Voucher.model.js'
 
 // Get user's check-in status
 export const getCheckInStatus = async (req: AuthRequest, res: Response) => {

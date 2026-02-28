@@ -6,10 +6,10 @@ import {
   getCurrentPlan,
   getSubscriptionAccess,
   getRoomLimit
-} from '../controllers/subscription.controller'
-import { authenticate, AuthRequest } from '../middleware/auth'
-import { requireAdmin } from '../middleware/adminAuth'
-import { SubscriptionService } from '../services/subscription.service'
+} from '../controllers/subscription.controller.js'
+import { authenticate, AuthRequest } from '../middleware/auth.js'
+import { requireAdmin } from '../middleware/adminAuth.js'
+import { SubscriptionService } from '../services/subscription.service.js'
 import { Response } from 'express'
 
 const router = Router()

@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { getDashboardStats, getConsumptionChart, getTips, getInvoice } from '../controllers/analytics.controller'
-import { authenticate } from '../middleware/auth'
-import { SubscriptionService } from '../services/subscription.service'
+import { getDashboardStats, getConsumptionChart, getTips, getInvoice } from '../controllers/analytics.controller.js'
+import { authenticate } from '../middleware/auth.js'
+import { SubscriptionService } from '../services/subscription.service.js'
 import { Response } from 'express'
-import { AuthRequest } from '../middleware/auth'
+import { AuthRequest } from '../middleware/auth.js'
 
 const router = Router()
 

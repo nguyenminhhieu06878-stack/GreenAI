@@ -8,17 +8,17 @@ import {
   getTenantReadings,
   getAllVouchers,
   deleteVoucher
-} from '../controllers/admin.controller'
+} from '../controllers/admin.controller.js'
 import {
   getAllTemplates,
   createTemplate,
   updateTemplate,
   deleteTemplate,
   getVoucherStats
-} from '../controllers/voucherTemplate.controller'
-import { adminCreateSubscription } from '../controllers/subscription.controller'
-import { authenticate, AuthRequest } from '../middleware/auth'
-import { requireAdmin } from '../middleware/adminAuth'
+} from '../controllers/voucherTemplate.controller.js'
+import { adminCreateSubscription } from '../controllers/subscription.controller.js'
+import { authenticate, AuthRequest } from '../middleware/auth.js'
+import { requireAdmin } from '../middleware/adminAuth.js'
 
 const router = Router()
 
