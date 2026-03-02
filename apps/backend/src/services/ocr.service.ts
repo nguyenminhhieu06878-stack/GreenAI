@@ -49,13 +49,23 @@ export class OCRService {
       }
 
       // Extract numbers from original text (before cleaning)
-      // This preserves word boundaries
+      // This preserves word boundaries and handles numbers with leading zeros
       const numbersFromOriginal = text.match(/\d+\.?\d*/g) || []
       
       console.log('🔢 Numbers from original text:', numbersFromOriginal)
+      
+      // Also try to find sequences that look like meter readings
+      // Look for 5-6 consecutive digits (common for Vietnamese meters)
+      const meterPattern = /\b\d{4,6}\b/g
+      const meterLikeNumbers = text.match(meterPattern) || []
+      console.log('🎯 Meter-like patterns (4-6 digits):', meterLikeNumbers)
+      
+      // Combine both approaches
+      const allNumbers = [...new Set([...numbersFromOriginal, ...meterLikeNumbers])]
+      console.log('📋 All unique numbers:', allNumbers)
 
       // Parse all numbers and filter valid readings
-      const readings = numbersFromOriginal
+      const readings = allNumbers
         .map(n => parseFloat(n))
         .filter(n => !isNaN(n) && n >= 10 && n < 999999) // Reasonable meter reading range (at least 2 digits)
         .sort((a, b) => b - a) // Sort descending
@@ -70,15 +80,24 @@ export class OCRService {
         }
       }
 
-      // Strategy: Take the largest number that looks like a meter reading
-      // Meter readings are typically 3-6 digits
+      // Strategy: Prioritize numbers that look like meter readings
+      // Vietnamese electric meters typically show 5-6 digits
       let value = readings[0]
       
-      // Prefer numbers with 3-6 digits
-      const preferredReadings = readings.filter(n => n >= 100 && n <= 999999)
-      if (preferredReadings.length > 0) {
-        value = preferredReadings[0]
-        console.log('🎯 Selected preferred reading:', value)
+      // Prefer numbers with 4-6 digits (most common for electric meters)
+      const meterLikeReadings = readings.filter(n => n >= 1000 && n <= 999999)
+      if (meterLikeReadings.length > 0) {
+        // If we have multiple candidates, prefer the one with 5-6 digits
+        const fiveToSixDigits = meterLikeReadings.filter(n => n >= 10000 && n <= 999999)
+        if (fiveToSixDigits.length > 0) {
+          value = fiveToSixDigits[0]
+          console.log('🎯 Selected 5-6 digit reading:', value)
+        } else {
+          value = meterLikeReadings[0]
+          console.log('🎯 Selected 4+ digit reading:', value)
+        }
+      } else {
+        console.log('⚠️ Using fallback reading:', value)
       }
 
       // Get confidence from OCR result (0-100 scale)
