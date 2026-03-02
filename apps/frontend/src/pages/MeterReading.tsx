@@ -81,20 +81,34 @@ export default function MeterReading() {
   const capturePhoto = () => {
     if (!videoRef.current) return
 
+    const video = videoRef.current
     const canvas = document.createElement('canvas')
-    canvas.width = videoRef.current.videoWidth
-    canvas.height = videoRef.current.videoHeight
+    
+    // Ensure minimum dimensions for OCR
+    const minWidth = 800
+    const minHeight = 600
+    
+    // Use video dimensions or minimum, whichever is larger
+    canvas.width = Math.max(video.videoWidth, minWidth)
+    canvas.height = Math.max(video.videoHeight, minHeight)
+    
     const ctx = canvas.getContext('2d')
     
     if (ctx) {
-      ctx.drawImage(videoRef.current, 0, 0)
+      // Draw video frame to canvas
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+      
+      // Convert to blob with good quality
       canvas.toBlob((blob) => {
         if (blob) {
+          console.log('📸 Captured image size:', blob.size, 'bytes')
+          console.log('📐 Image dimensions:', canvas.width, 'x', canvas.height)
+          
           const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' })
           setImage(file)
           stopCamera()
         }
-      }, 'image/jpeg', 0.9)
+      }, 'image/jpeg', 0.95) // Higher quality
     }
   }
 
