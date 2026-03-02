@@ -1,9 +1,10 @@
 import Tesseract from 'tesseract.js'
 import path from 'path'
 import fs from 'fs'
+import OCRTraining from '../models/OCRTraining.model.js'
 
 export class OCRService {
-  static async extractMeterReading(imagePath: string): Promise<{ value: number; confidence: number }> {
+  static async extractMeterReading(imagePath: string): Promise<{ value: number; confidence: number; rawText?: string }> {
     try {
       const absolutePath = path.resolve(imagePath)
       
@@ -111,7 +112,8 @@ export class OCRService {
 
       return {
         value: Math.round(value), // Round to integer for meter readings
-        confidence: Math.max(0.3, Math.min(1, confidence)) // Clamp between 0.3 and 1
+        confidence: Math.max(0.3, Math.min(1, confidence)), // Clamp between 0.3 and 1
+        rawText: text // Return raw text for training
       }
     } catch (error: any) {
       console.error('❌ OCR Error:', error)

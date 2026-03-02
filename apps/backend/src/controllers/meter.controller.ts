@@ -3,6 +3,7 @@ import { AuthRequest } from '../middleware/auth.js'
 import MeterReading from '../models/MeterReading.model.js'
 import User from '../models/User.model.js'
 import Room from '../models/Room.model.js'
+import OCRTraining from '../models/OCRTraining.model.js'
 import { CalculationService } from '../services/calculation.service.js'
 import { OCRService } from '../services/ocr.service.js'
 import { SubscriptionService } from '../services/subscription.service.js'
@@ -23,7 +24,7 @@ export const uploadMeterImage = async (req: AuthRequest, res: Response) => {
 
     // Use OCR to extract meter reading from image
     console.log('Processing image:', req.file.path)
-    const { value: mockReading, confidence } = await OCRService.extractMeterReading(req.file.path)
+    const { value: mockReading, confidence, rawText } = await OCRService.extractMeterReading(req.file.path)
     
     // Check if OCR failed
     if (mockReading === 0 && confidence === 0) {
@@ -94,7 +95,8 @@ export const uploadMeterImage = async (req: AuthRequest, res: Response) => {
       consumption,
       cost,
       days,
-      id: reading._id
+      id: reading._id,
+      rawText // Send raw text to frontend for debugging
     })
   } catch (error) {
     console.error('Upload meter image error:', error)
@@ -288,6 +290,23 @@ export const updateReading = async (req: AuthRequest, res: Response) => {
     // Only owner or landlord can update
     if (!isOwner && !isLandlord) {
       return res.status(403).json({ error: 'You can only update your own readings' })
+    }
+
+    // If this was an OCR reading and user is correcting it, save for training
+    if (reading.method === 'auto' && reading.value !== parseFloat(value) && reading.imagePath) {
+      try {
+        await OCRTraining.create({
+          imagePath: reading.imagePath,
+          ocrResult: reading.value,
+          correctValue: parseFloat(value),
+          confidence: reading.confidence || 0,
+          userId: userId
+        })
+        console.log('✅ Saved OCR training data: OCR said', reading.value, 'but correct is', value)
+      } catch (error) {
+        console.error('Failed to save OCR training data:', error)
+        // Don't fail the update if training save fails
+      }
     }
 
     // Update value and recalculate consumption/cost
