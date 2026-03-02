@@ -185,6 +185,41 @@ export default function MeterReading() {
                 playsInline
                 className="w-full rounded-lg"
               />
+              
+              {/* Camera Guide Overlay */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Dark overlay with transparent center */}
+                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+                
+                {/* Guide box for meter reading */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-md">
+                  {/* Transparent center box */}
+                  <div className="relative border-4 border-emerald-400 rounded-lg bg-transparent" style={{ aspectRatio: '16/9' }}>
+                    {/* Corner markers */}
+                    <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-emerald-400"></div>
+                    <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-emerald-400"></div>
+                    <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-emerald-400"></div>
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-emerald-400"></div>
+                    
+                    {/* Center crosshair */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      <div className="w-8 h-0.5 bg-emerald-400"></div>
+                      <div className="w-0.5 h-8 bg-emerald-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Instruction text */}
+                  <div className="mt-4 text-center">
+                    <p className="text-white text-sm font-medium drop-shadow-lg">
+                      📸 Đặt chỉ số điện vào khung
+                    </p>
+                    <p className="text-white text-xs mt-1 drop-shadow-lg">
+                      Đảm bảo số rõ ràng và đủ sáng
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
               <div className="flex gap-2 mt-4">
                 <button 
                   onClick={capturePhoto}
