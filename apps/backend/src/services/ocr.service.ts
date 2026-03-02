@@ -17,12 +17,7 @@ export class OCRService {
             if (m.status === 'recognizing text') {
               console.log(`OCR Progress: ${Math.round(m.progress * 100)}%`)
             }
-          },
-          // Optimize for digits and numbers
-          tessedit_char_whitelist: '0123456789.',
-          tessedit_pageseg_mode: Tesseract.PSM.SINGLE_BLOCK,
-          // Improve accuracy
-          tessedit_ocr_engine_mode: Tesseract.OEM.LSTM_ONLY,
+          }
         }
       )
 
@@ -30,8 +25,12 @@ export class OCRService {
       console.log('📝 OCR Raw Text:', text)
       console.log('📊 OCR Confidence:', result.data.confidence)
 
-      // Extract all numbers from text
-      const numbers = text.match(/\d+\.?\d*/g)
+      // Clean text: remove all non-digit characters except dots
+      const cleanedText = text.replace(/[^\d.]/g, '')
+      console.log('🧹 Cleaned Text:', cleanedText)
+
+      // Extract all numbers from cleaned text
+      const numbers = cleanedText.match(/\d+\.?\d*/g)
       
       if (!numbers || numbers.length === 0) {
         console.log('⚠️ No numbers found in OCR')
