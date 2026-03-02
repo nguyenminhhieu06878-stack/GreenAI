@@ -178,42 +178,50 @@ export default function MeterReading() {
           <h2 className="text-sm sm:text-base lg:text-lg font-semibold mb-3 sm:mb-4">Chụp Ảnh Đồng Hồ Điện</h2>
           
           {showCamera ? (
-            <div className="relative">
+            <div className="relative bg-black rounded-lg overflow-hidden">
               <video 
                 ref={videoRef}
                 autoPlay 
                 playsInline
-                className="w-full rounded-lg"
+                className="w-full rounded-lg relative z-0"
               />
               
               {/* Camera Guide Overlay */}
-              <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute inset-0 pointer-events-none z-10">
                 {/* Dark overlay with transparent center */}
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <defs>
+                    <mask id="guideMask">
+                      <rect width="100" height="100" fill="white"/>
+                      <rect x="10" y="25" width="80" height="50" rx="2" fill="black"/>
+                    </mask>
+                  </defs>
+                  <rect width="100" height="100" fill="rgba(0,0,0,0.5)" mask="url(#guideMask)"/>
+                </svg>
                 
                 {/* Guide box for meter reading */}
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-md">
-                  {/* Transparent center box */}
-                  <div className="relative border-4 border-emerald-400 rounded-lg bg-transparent" style={{ aspectRatio: '16/9' }}>
+                  {/* Border box */}
+                  <div className="relative border-4 border-emerald-400 rounded-lg bg-transparent shadow-lg" style={{ aspectRatio: '16/9' }}>
                     {/* Corner markers */}
-                    <div className="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-emerald-400"></div>
-                    <div className="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-emerald-400"></div>
-                    <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-emerald-400"></div>
-                    <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-emerald-400"></div>
+                    <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-white"></div>
+                    <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-white"></div>
+                    <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-white"></div>
+                    <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-white"></div>
                     
                     {/* Center crosshair */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-8 h-0.5 bg-emerald-400"></div>
-                      <div className="w-0.5 h-8 bg-emerald-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                      <div className="w-12 h-1 bg-emerald-400"></div>
+                      <div className="w-1 h-12 bg-emerald-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
                     </div>
                   </div>
                   
                   {/* Instruction text */}
-                  <div className="mt-4 text-center">
-                    <p className="text-white text-sm font-medium drop-shadow-lg">
+                  <div className="mt-4 text-center bg-black bg-opacity-60 rounded-lg py-2 px-4">
+                    <p className="text-white text-sm font-bold">
                       📸 Đặt chỉ số điện vào khung
                     </p>
-                    <p className="text-white text-xs mt-1 drop-shadow-lg">
+                    <p className="text-emerald-300 text-xs mt-1">
                       Đảm bảo số rõ ràng và đủ sáng
                     </p>
                   </div>
