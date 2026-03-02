@@ -4,6 +4,37 @@ import fs from 'fs'
 import OCRTraining from '../models/OCRTraining.model.js'
 
 export class OCRService {
+  // Cache training patterns in memory for faster lookup
+  private static trainingPatterns: Map<string, number> = new Map()
+  private static lastTrainingLoad = 0
+  private static CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+
+  static async loadTrainingPatterns() {
+    const now = Date.now()
+    // Reload training data every 5 minutes
+    if (now - this.lastTrainingLoad < this.CACHE_DURATION && this.trainingPatterns.size > 0) {
+      return
+    }
+
+    try {
+      const trainingData = await OCRTraining.find().limit(1000)
+      this.trainingPatterns.clear()
+      
+      trainingData.forEach(data => {
+        if (data.rawText) {
+          // Store pattern: rawText -> correctValue
+          const key = data.rawText.trim().toLowerCase()
+          this.trainingPatterns.set(key, data.correctValue)
+        }
+      })
+      
+      this.lastTrainingLoad = now
+      console.log(`📚 Loaded ${this.trainingPatterns.size} OCR training patterns`)
+    } catch (error) {
+      console.error('Failed to load training patterns:', error)
+    }
+  }
+
   static async extractMeterReading(imagePath: string): Promise<{ value: number; confidence: number; rawText?: string }> {
     try {
       const absolutePath = path.resolve(imagePath)
@@ -18,6 +49,9 @@ export class OCRService {
       }
       
       console.log('🔍 Starting OCR for:', absolutePath)
+      
+      // Load training patterns
+      await this.loadTrainingPatterns()
       
       // Use Tesseract with optimized settings for meter readings
       const result = await Tesseract.recognize(
@@ -39,6 +73,18 @@ export class OCRService {
       const text = result.data.text.trim()
       console.log('📝 OCR Raw Text:', text)
       console.log('📊 OCR Confidence:', result.data.confidence)
+
+      // Check if we've seen this exact text before in training data
+      const textKey = text.toLowerCase()
+      if (this.trainingPatterns.has(textKey)) {
+        const learnedValue = this.trainingPatterns.get(textKey)!
+        console.log('🎓 Found learned pattern! Using trained value:', learnedValue)
+        return {
+          value: learnedValue,
+          confidence: 0.95, // High confidence for learned patterns
+          rawText: text
+        }
+      }
 
       // If text is empty or confidence too low, return error
       if (!text || text.length === 0) {

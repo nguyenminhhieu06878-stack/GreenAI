@@ -9,6 +9,7 @@ export interface IMeterReading extends Document {
   imagePath?: string
   method: 'auto' | 'manual'
   confidence?: number
+  rawText?: string
   notes?: string
   createdAt: Date
   updatedAt: Date
@@ -52,6 +53,9 @@ const MeterReadingSchema = new Schema<IMeterReading>(
       type: Number,
       min: 0,
       max: 1
+    },
+    rawText: {
+      type: String
     },
     notes: {
       type: String

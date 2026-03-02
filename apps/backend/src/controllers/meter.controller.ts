@@ -85,6 +85,7 @@ export const uploadMeterImage = async (req: AuthRequest, res: Response) => {
       imagePath: req.file.path,
       method: 'auto',
       confidence,
+      rawText, // Save raw text for training
       consumption,
       cost
     })
@@ -295,11 +296,15 @@ export const updateReading = async (req: AuthRequest, res: Response) => {
     // If this was an OCR reading and user is correcting it, save for training
     if (reading.method === 'auto' && reading.value !== parseFloat(value) && reading.imagePath) {
       try {
+        // Get the raw text from the reading if available
+        const rawText = (reading as any).rawText || ''
+        
         await OCRTraining.create({
           imagePath: reading.imagePath,
           ocrResult: reading.value,
           correctValue: parseFloat(value),
           confidence: reading.confidence || 0,
+          rawText: rawText,
           userId: userId
         })
         console.log('✅ Saved OCR training data: OCR said', reading.value, 'but correct is', value)
