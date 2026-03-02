@@ -24,6 +24,19 @@ export const uploadMeterImage = async (req: AuthRequest, res: Response) => {
     // Use OCR to extract meter reading from image
     console.log('Processing image:', req.file.path)
     const { value: mockReading, confidence } = await OCRService.extractMeterReading(req.file.path)
+    
+    // Check if OCR failed
+    if (mockReading === 0 && confidence === 0) {
+      return res.status(400).json({ 
+        error: 'Could not read meter from image. Please try again with a clearer photo or enter manually.',
+        tips: [
+          'Ensure good lighting',
+          'Take photo straight on',
+          'Make sure numbers are clear and in focus',
+          'Clean the meter glass before taking photo'
+        ]
+      })
+    }
 
     // Get previous reading to calculate consumption
     // Priority: Find by roomId if available, otherwise by userId

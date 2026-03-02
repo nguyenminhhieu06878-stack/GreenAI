@@ -1,10 +1,20 @@
 import Tesseract from 'tesseract.js'
 import path from 'path'
+import fs from 'fs'
 
 export class OCRService {
   static async extractMeterReading(imagePath: string): Promise<{ value: number; confidence: number }> {
     try {
       const absolutePath = path.resolve(imagePath)
+      
+      // Check if file exists
+      if (!fs.existsSync(absolutePath)) {
+        console.error('❌ File not found:', absolutePath)
+        return {
+          value: 0,
+          confidence: 0
+        }
+      }
       
       console.log('🔍 Starting OCR for:', absolutePath)
       
