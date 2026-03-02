@@ -84,25 +84,53 @@ export default function MeterReading() {
     const video = videoRef.current
     const canvas = document.createElement('canvas')
     
-    // Ensure minimum dimensions for OCR
-    const minWidth = 800
-    const minHeight = 600
+    // Get video dimensions
+    const videoWidth = video.videoWidth
+    const videoHeight = video.videoHeight
     
-    // Use video dimensions or minimum, whichever is larger
-    canvas.width = Math.max(video.videoWidth, minWidth)
-    canvas.height = Math.max(video.videoHeight, minHeight)
+    // Calculate crop area (76% width, 70px height, centered)
+    const cropWidth = videoWidth * 0.76
+    const cropHeight = Math.min(70 * (videoWidth / 400), videoHeight * 0.15) // Scale based on video size
+    const cropX = (videoWidth - cropWidth) / 2
+    const cropY = (videoHeight - cropHeight) / 2
+    
+    // Set canvas to crop size
+    canvas.width = cropWidth
+    canvas.height = cropHeight
     
     const ctx = canvas.getContext('2d')
     
     if (ctx) {
-      // Draw video frame to canvas
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+      // Draw only the cropped region
+      ctx.drawImage(
+        video,
+        cropX, cropY, cropWidth, cropHeight, // Source rectangle (crop area)
+        0, 0, cropWidth, cropHeight           // Destination rectangle (full canvas)
+      )
+      
+      // Enhance brightness and contrast
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+      const data = imageData.data
+      
+      // Increase brightness by 20% and contrast
+      const brightness = 1.2
+      const contrast = 1.1
+      
+      for (let i = 0; i < data.length; i += 4) {
+        // Apply brightness and contrast to RGB channels
+        data[i] = Math.min(255, ((data[i] - 128) * contrast + 128) * brightness)     // Red
+        data[i + 1] = Math.min(255, ((data[i + 1] - 128) * contrast + 128) * brightness) // Green
+        data[i + 2] = Math.min(255, ((data[i + 2] - 128) * contrast + 128) * brightness) // Blue
+      }
+      
+      ctx.putImageData(imageData, 0, 0)
       
       // Convert to blob with good quality
       canvas.toBlob((blob) => {
         if (blob) {
-          console.log('📸 Captured image size:', blob.size, 'bytes')
-          console.log('📐 Image dimensions:', canvas.width, 'x', canvas.height)
+          console.log('📸 Captured cropped image size:', blob.size, 'bytes')
+          console.log('📐 Cropped dimensions:', canvas.width, 'x', canvas.height)
+          console.log('✂️ Crop area: x=' + cropX + ', y=' + cropY + ', w=' + cropWidth + ', h=' + cropHeight)
           
           const file = new File([blob], 'camera-photo.jpg', { type: 'image/jpeg' })
           setImage(file)
@@ -178,57 +206,93 @@ export default function MeterReading() {
           <h2 className="text-sm sm:text-base lg:text-lg font-semibold mb-3 sm:mb-4">Chụp Ảnh Đồng Hồ Điện</h2>
           
           {showCamera ? (
-            <div className="relative bg-black rounded-lg overflow-hidden">
-              <video 
-                ref={videoRef}
-                autoPlay 
-                playsInline
-                className="w-full rounded-lg relative z-0"
-              />
-              
-              {/* Camera Guide Overlay */}
-              <div className="absolute inset-0 pointer-events-none z-10">
-                {/* Dark overlay with transparent center */}
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <defs>
-                    <mask id="guideMask">
-                      <rect width="100" height="100" fill="white"/>
-                      <rect x="10" y="25" width="80" height="50" rx="2" fill="black"/>
-                    </mask>
-                  </defs>
-                  <rect width="100" height="100" fill="rgba(0,0,0,0.5)" mask="url(#guideMask)"/>
-                </svg>
+            <div className="space-y-4">
+              <div className="relative bg-black rounded-lg overflow-hidden">
+                <video 
+                  ref={videoRef}
+                  autoPlay 
+                  playsInline
+                  className="w-full rounded-lg relative z-0"
+                />
                 
-                {/* Guide box for meter reading */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-md">
-                  {/* Border box */}
-                  <div className="relative border-4 border-emerald-400 rounded-lg bg-transparent shadow-lg" style={{ aspectRatio: '16/9' }}>
-                    {/* Corner markers */}
-                    <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-white"></div>
-                    <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-white"></div>
-                    <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-white"></div>
-                    <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-white"></div>
+                {/* Camera Guide Overlay */}
+                <div className="absolute inset-0 pointer-events-none z-10">
+                  {/* Dark overlay with transparent center */}
+                  <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                  
+                  {/* Guide box for meter reading */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[76%] max-w-lg">
+                    {/* Transparent cutout */}
+                    <div className="absolute inset-0 rounded-xl" style={{ 
+                      height: '70px',
+                      boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.4)'
+                    }}></div>
                     
-                    {/* Center crosshair */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-12 h-1 bg-emerald-400"></div>
-                      <div className="w-1 h-12 bg-emerald-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                    {/* Animated scanning line */}
+                    <div className="absolute inset-0 overflow-hidden rounded-xl" style={{ height: '70px' }}>
+                      <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-pulse" 
+                           style={{ 
+                             top: '50%',
+                             animation: 'scan 2s ease-in-out infinite'
+                           }}>
+                      </div>
+                    </div>
+                    
+                    {/* Main border box */}
+                    <div className="relative rounded-xl overflow-hidden" style={{ height: '70px' }}>
+                      {/* Glowing border effect */}
+                      <div className="absolute inset-0 border-4 border-emerald-400 rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.5)] animate-pulse"></div>
+                      
+                      {/* Corner brackets - top left */}
+                      <div className="absolute top-0 left-0 w-8 h-8">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-white shadow-lg"></div>
+                        <div className="absolute top-0 left-0 w-1 h-full bg-white shadow-lg"></div>
+                      </div>
+                      
+                      {/* Corner brackets - top right */}
+                      <div className="absolute top-0 right-0 w-8 h-8">
+                        <div className="absolute top-0 right-0 w-full h-1 bg-white shadow-lg"></div>
+                        <div className="absolute top-0 right-0 w-1 h-full bg-white shadow-lg"></div>
+                      </div>
+                      
+                      {/* Corner brackets - bottom left */}
+                      <div className="absolute bottom-0 left-0 w-8 h-8">
+                        <div className="absolute bottom-0 left-0 w-full h-1 bg-white shadow-lg"></div>
+                        <div className="absolute bottom-0 left-0 w-1 h-full bg-white shadow-lg"></div>
+                      </div>
+                      
+                      {/* Corner brackets - bottom right */}
+                      <div className="absolute bottom-0 right-0 w-8 h-8">
+                        <div className="absolute bottom-0 right-0 w-full h-1 bg-white shadow-lg"></div>
+                        <div className="absolute bottom-0 right-0 w-1 h-full bg-white shadow-lg"></div>
+                      </div>
+                      
+                      {/* Center target */}
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div className="relative w-6 h-6">
+                          <div className="absolute top-1/2 left-0 w-full h-0.5 bg-emerald-400 transform -translate-y-1/2"></div>
+                          <div className="absolute top-0 left-1/2 w-0.5 h-full bg-emerald-400 transform -translate-x-1/2"></div>
+                          <div className="absolute top-1/2 left-1/2 w-2 h-2 border-2 border-emerald-400 rounded-full transform -translate-x-1/2 -translate-y-1/2 bg-emerald-400 bg-opacity-30"></div>
+                        </div>
+                      </div>
+                      
+                      {/* Helper lines */}
+                      <div className="absolute top-1/2 left-0 w-3 h-0.5 bg-emerald-400 transform -translate-y-1/2"></div>
+                      <div className="absolute top-1/2 right-0 w-3 h-0.5 bg-emerald-400 transform -translate-y-1/2"></div>
                     </div>
                   </div>
-                  
-                  {/* Instruction text */}
-                  <div className="mt-4 text-center bg-black bg-opacity-60 rounded-lg py-2 px-4">
-                    <p className="text-white text-sm font-bold">
-                      📸 Đặt chỉ số điện vào khung
-                    </p>
-                    <p className="text-emerald-300 text-xs mt-1">
-                      Đảm bảo số rõ ràng và đủ sáng
-                    </p>
-                  </div>
                 </div>
+                
+                <style>{`
+                  @keyframes scan {
+                    0%, 100% { top: 0%; }
+                    50% { top: 100%; }
+                  }
+                `}</style>
               </div>
               
-              <div className="flex gap-2 mt-4">
+              {/* Buttons outside video */}
+              <div className="flex gap-2">
                 <button 
                   onClick={capturePhoto}
                   className="flex-1 px-4 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium flex items-center justify-center gap-2"
