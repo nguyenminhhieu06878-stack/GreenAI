@@ -445,7 +445,7 @@ export default function MeterReading() {
                       <td className="px-3 sm:px-4 py-2.5 sm:py-3 text-center text-xs sm:text-sm">
                         {r.imagePath ? (
                           <button
-                            onClick={() => window.open(`http://localhost:3000/${r.imagePath}`, '_blank')}
+                            onClick={() => window.open(`${import.meta.env.VITE_API_URL}/${r.imagePath}`, '_blank')}
                             className="text-emerald-600 hover:text-emerald-700 font-medium whitespace-nowrap"
                           >
                             Xem ảnh
