@@ -6,7 +6,9 @@ export class OCRService {
     try {
       const absolutePath = path.resolve(imagePath)
       
-      // Use Tesseract to recognize text from image
+      console.log('🔍 Starting OCR for:', absolutePath)
+      
+      // Use Tesseract with optimized settings for meter readings
       const result = await Tesseract.recognize(
         absolutePath,
         'eng',
@@ -15,44 +17,78 @@ export class OCRService {
             if (m.status === 'recognizing text') {
               console.log(`OCR Progress: ${Math.round(m.progress * 100)}%`)
             }
-          }
+          },
+          // Optimize for digits and numbers
+          tessedit_char_whitelist: '0123456789.',
+          tessedit_pageseg_mode: Tesseract.PSM.SINGLE_BLOCK,
+          // Improve accuracy
+          tessedit_ocr_engine_mode: Tesseract.OEM.LSTM_ONLY,
         }
       )
 
-      const text = result.data.text
-      console.log('OCR Raw Text:', text)
+      const text = result.data.text.trim()
+      console.log('📝 OCR Raw Text:', text)
+      console.log('📊 OCR Confidence:', result.data.confidence)
 
-      // Extract numbers from text
+      // Extract all numbers from text
       const numbers = text.match(/\d+\.?\d*/g)
       
       if (!numbers || numbers.length === 0) {
-        // If no numbers found, return a mock value
-        console.log('No numbers found in OCR, using mock value')
+        console.log('⚠️ No numbers found in OCR')
         return {
-          value: Math.floor(Math.random() * 1000) + 1000,
-          confidence: 0.5
+          value: 0,
+          confidence: 0
         }
       }
 
-      // Find the largest number (likely to be the meter reading)
-      const readings = numbers.map(n => parseFloat(n)).filter(n => n > 0)
-      const value = Math.max(...readings)
+      // Parse all numbers and filter valid readings
+      const readings = numbers
+        .map(n => parseFloat(n))
+        .filter(n => !isNaN(n) && n > 0 && n < 999999) // Reasonable meter reading range
+        .sort((a, b) => b - a) // Sort descending
 
-      // Get confidence from OCR result
+      console.log('🔢 All detected numbers:', readings)
+
+      if (readings.length === 0) {
+        console.log('⚠️ No valid readings found')
+        return {
+          value: 0,
+          confidence: 0
+        }
+      }
+
+      // Strategy: Take the largest number that looks like a meter reading
+      // Meter readings are typically 3-6 digits
+      let value = readings[0]
+      
+      // If the largest number is too small (< 100), try to combine digits
+      if (value < 100 && readings.length > 1) {
+        // Try to form a larger number from consecutive digits
+        const combined = parseFloat(readings.join(''))
+        if (combined > 100 && combined < 999999) {
+          value = combined
+          console.log('🔄 Combined digits to form:', value)
+        }
+      }
+
+      // Get confidence from OCR result (0-100 scale)
       const confidence = result.data.confidence / 100
 
-      console.log('OCR Result:', { value, confidence, allNumbers: readings })
+      console.log('✅ Final OCR Result:', { 
+        value, 
+        confidence: confidence.toFixed(2),
+        allReadings: readings 
+      })
 
       return {
-        value: Math.round(value * 10) / 10, // Round to 1 decimal place
-        confidence: Math.max(0.5, Math.min(1, confidence)) // Clamp between 0.5 and 1
+        value: Math.round(value), // Round to integer for meter readings
+        confidence: Math.max(0.3, Math.min(1, confidence)) // Clamp between 0.3 and 1
       }
     } catch (error) {
-      console.error('OCR Error:', error)
-      // Fallback to mock value if OCR fails
+      console.error('❌ OCR Error:', error)
       return {
-        value: Math.floor(Math.random() * 1000) + 1000,
-        confidence: 0.5
+        value: 0,
+        confidence: 0
       }
     }
   }

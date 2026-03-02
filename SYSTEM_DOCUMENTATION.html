@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Liệu Hệ Thống GreenEnergy AI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #16a34a;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #16a34a;
+            margin-top: 30px;
+            border-left: 4px solid #16a34a;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #059669;
+            margin-top: 20px;
+        }
+        .section {
+            margin: 20px 0;
+        }
+        .info-box {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .tech-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        .tech-item strong {
+            color: #16a34a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #16a34a;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #dc2626;
+        }
+        .url {
+            color: #2563eb;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 TÀI LIỆU HỆ THỐNG GREENENERGY AI</h1>
+        
+        <div class="section">
+            <h2>🎯 Tổng Quan Hệ Thống</h2>
+            <p><strong>GreenEnergy AI</strong> là hệ thống quản lý điện năng thông minh sử dụng AI, giúp chủ nhà trọ và người thuê theo dõi, quản lý tiêu thụ điện nước một cách hiệu quả.</p>
+            
+            <div class="info-box">
+                <strong>🌐 URL Production:</strong><br>
+                • Frontend: <span class="url">https://greenenergy-frontend.vercel.app</span><br>
+                • Backend API: <span class="url">https://greenai-production.up.railway.app</span><br>
+                • Database: MongoDB Atlas (Cloud)
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🏗️ Kiến Trúc Hệ Thống</h2>
+            <h3>Frontend (Vercel)</h3>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <strong>Framework:</strong> React + TypeScript
+                </div>
+                <div class="tech-item">
+                    <strong>Build Tool:</strong> Vite
+                </div>
+                <div class="tech-item">
+                    <strong>UI Library:</strong> Tailwind CSS
+                </div>
+                <div class="tech-item">
+                    <strong>State Management:</strong> Zustand
+                </div>
+                <div class="tech-item">
+                    <strong>Charts:</strong> Recharts
+                </div>
+                <div class="tech-item">
+                    <strong>3D Graphics:</strong> Three.js
+                </div>
+            </div>
+
+            <h3>Backend (Railway)</h3>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <strong>Runtime:</strong> Node.js 20.x
+                </div>
+                <div class="tech-item">
+                    <strong>Framework:</strong> Express.js
+                </div>
+                <div class="tech-item">
+                    <strong>Language:</strong> TypeScript
+                </div>
+                <div class="tech-item">
+                    <strong>Database:</strong> MongoDB (Mongoose)
+                </div>
+                <div class="tech-item">
+                    <strong>Authentication:</strong> JWT + Passport.js
+                </div>
+                <div class="tech-item">
+                    <strong>File Upload:</strong> Multer
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔑 Tính Năng Chính</h2>
+            
+            <h3>Cho Người Thuê (Tenant)</h3>
+            <ul>
+                <li>📊 Theo dõi tiêu thụ điện nước theo thời gian thực</li>
+                <li>📸 Chụp ảnh đồng hồ điện bằng OCR (Tesseract.js)</li>
+                <li>💡 Nhận gợi ý tiết kiệm điện từ AI (Groq)</li>
+                <li>💰 Xem hóa đơn và thanh toán online (PayOS)</li>
+                <li>🎮 Tính năng gamification với cây xanh 3D</li>
+                <li>✅ Check-in hàng ngày để nhận điểm thưởng</li>
+                <li>🎁 Sử dụng voucher giảm giá</li>
+                <li>💬 Chat hỗ trợ với admin</li>
+            </ul>
+
+            <h3>Cho Chủ Nhà (Landlord)</h3>
+            <ul>
+                <li>🏠 Quản lý phòng trọ và người thuê</li>
+                <li>📈 Xem báo cáo doanh thu và thống kê</li>
+                <li>⚡ Quản lý chỉ số điện nước</li>
+                <li>💳 Theo dõi thanh toán</li>
+                <li>📦 Quản lý gói đăng ký (subscription)</li>
+                <li>🎫 Tạo và quản lý voucher</li>
+                <li>💬 Hỗ trợ khách hàng qua chat</li>
+            </ul>
+
+            <h3>Admin Dashboard</h3>
+            <ul>
+                <li>👥 Quản lý người dùng (users, tenants, landlords)</li>
+                <li>🏢 Quản lý tất cả phòng trọ trong hệ thống</li>
+                <li>💰 Theo dõi doanh thu toàn hệ thống</li>
+                <li>📊 Phân tích và báo cáo chi tiết</li>
+                <li>🎫 Quản lý voucher template</li>
+                <li>💬 Xử lý yêu cầu hỗ trợ</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔐 Xác Thực & Bảo Mật</h2>
+            
+            <h3>Phương Thức Đăng Nhập</h3>
+            <ul>
+                <li><strong>Email/Password:</strong> Đăng ký và đăng nhập truyền thống với mã hóa bcrypt</li>
+                <li><strong>Google OAuth 2.0:</strong> Đăng nhập nhanh bằng tài khoản Google</li>
+            </ul>
+
+            <h3>Bảo Mật</h3>
+            <ul>
+                <li>JWT (JSON Web Token) cho session management</li>
+                <li>Password hashing với bcryptjs</li>
+                <li>CORS configuration cho cross-origin requests</li>
+                <li>Role-based access control (Admin, Landlord, Tenant)</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>🔑 Tài Khoản Admin Mặc Định:</strong><br>
+                • Email: <code>admin@greenenergy.com</code><br>
+                • Password: <code>admin123</code>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💳 Tích Hợp Thanh Toán</h2>
+            <p><strong>PayOS</strong> - Cổng thanh toán trực tuyến của Việt Nam</p>
+            <ul>
+                <li>Thanh toán hóa đơn điện nước</li>
+                <li>Nâng cấp gói subscription</li>
+                <li>Webhook để xử lý callback tự động</li>
+                <li>Hỗ trợ QR code và chuyển khoản ngân hàng</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🤖 Tích Hợp AI</h2>
+            
+            <h3>OCR - Đọc Đồng Hồ Điện</h3>
+            <ul>
+                <li><strong>Tesseract.js:</strong> Nhận diện chữ số từ ảnh đồng hồ điện</li>
+                <li>Tự động trích xuất chỉ số điện</li>
+                <li>Giảm thiểu sai sót khi nhập liệu thủ công</li>
+            </ul>
+
+            <h3>AI Chatbot & Gợi Ý</h3>
+            <ul>
+                <li><strong>Groq API:</strong> Large Language Model để tư vấn tiết kiệm điện</li>
+                <li>Phân tích mức tiêu thụ và đưa ra khuyến nghị</li>
+                <li>Trả lời câu hỏi về hóa đơn và cách sử dụng</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🗄️ Cơ Sở Dữ Liệu</h2>
+            
+            <h3>MongoDB Atlas (Cloud Database)</h3>
+            <p><strong>Database Name:</strong> <code>greenenergy</code></p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Collection</th>
+                        <th>Mô Tả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>users</strong></td>
+                        <td>Thông tin người dùng (admin, landlord, tenant)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>rooms</strong></td>
+                        <td>Thông tin phòng trọ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>meterreadings</strong></td>
+                        <td>Lịch sử chỉ số điện nước</td>
+                    </tr>
+                    <tr>
+                        <td><strong>pendingpayments</strong></td>
+                        <td>Hóa đơn chờ thanh toán</td>
+                    </tr>
+                    <tr>
+                        <td><strong>subscriptions</strong></td>
+                        <td>Gói đăng ký của landlord</td>
+                    </tr>
+                    <tr>
+                        <td><strong>vouchers</strong></td>
+                        <td>Voucher giảm giá</td>
+                    </tr>
+                    <tr>
+                        <td><strong>vouchertemplates</strong></td>
+                        <td>Mẫu voucher</td>
+                    </tr>
+                    <tr>
+                        <td><strong>checkins</strong></td>
+                        <td>Lịch sử check-in hàng ngày</td>
+                    </tr>
+                    <tr>
+                        <td><strong>supportmessages</strong></td>
+                        <td>Tin nhắn hỗ trợ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Deployment & Hosting</h2>
+            
+            <h3>Frontend - Vercel</h3>
+            <div class="info-box">
+                <strong>URL:</strong> <span class="url">https://greenenergy-frontend.vercel.app</span><br>
+                <strong>Framework:</strong> React + Vite<br>
+                <strong>Build Command:</strong> <code>npm run build</code><br>
+                <strong>Output Directory:</strong> <code>dist</code><br>
+                <strong>Node Version:</strong> 20.x
+            </div>
+
+            <h3>Backend - Railway</h3>
+            <div class="info-box">
+                <strong>URL:</strong> <span class="url">https://greenai-production.up.railway.app</span><br>
+                <strong>Framework:</strong> Express.js<br>
+                <strong>Build Command:</strong> <code>npm run build</code><br>
+                <strong>Start Command:</strong> <code>npm start</code><br>
+                <strong>Node Version:</strong> 20.x<br>
+                <strong>Root Directory:</strong> <code>apps/backend</code>
+            </div>
+
+            <h3>Database - MongoDB Atlas</h3>
+            <div class="info-box">
+                <strong>Provider:</strong> MongoDB Atlas (Cloud)<br>
+                <strong>Region:</strong> AWS - Singapore<br>
+                <strong>Cluster:</strong> Cluster0<br>
+                <strong>Database:</strong> <code>greenenergy</code>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ Biến Môi Trường</h2>
+            
+            <h3>Backend (Railway)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Biến</th>
+                        <th>Mô Tả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>PORT</code></td>
+                        <td>Cổng server (mặc định: 3000)</td>
+                    </tr>
+                    <tr>
+                        <td><code>NODE_ENV</code></td>
+                        <td>production</td>
+                    </tr>
+                    <tr>
+                        <td><code>MONGODB_URI</code></td>
+                        <td>Connection string MongoDB Atlas</td>
+                    </tr>
+                    <tr>
+                        <td><code>JWT_SECRET</code></td>
+                        <td>Secret key cho JWT token</td>
+                    </tr>
+                    <tr>
+                        <td><code>CORS_ORIGIN</code></td>
+                        <td>Danh sách domain được phép (Vercel URLs)</td>
+                    </tr>
+                    <tr>
+                        <td><code>GOOGLE_CLIENT_ID</code></td>
+                        <td>Google OAuth Client ID</td>
+                    </tr>
+                    <tr>
+                        <td><code>GOOGLE_CLIENT_SECRET</code></td>
+                        <td>Google OAuth Client Secret</td>
+                    </tr>
+                    <tr>
+                        <td><code>GOOGLE_CALLBACK_URL</code></td>
+                        <td>OAuth callback URL (Railway domain)</td>
+                    </tr>
+                    <tr>
+                        <td><code>FRONTEND_URL</code></td>
+                        <td>URL frontend (Vercel)</td>
+                    </tr>
+                    <tr>
+                        <td><code>GROQ_API_KEY</code></td>
+                        <td>API key cho Groq AI</td>
+                    </tr>
+                    <tr>
+                        <td><code>PAYOS_CLIENT_ID</code></td>
+                        <td>PayOS Client ID</td>
+                    </tr>
+                    <tr>
+                        <td><code>PAYOS_API_KEY</code></td>
+                        <td>PayOS API Key</td>
+                    </tr>
+                    <tr>
+                        <td><code>PAYOS_CHECKSUM_KEY</code></td>
+                        <td>PayOS Checksum Key</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Frontend (Vercel)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Biến</th>
+                        <th>Mô Tả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>VITE_API_URL</code></td>
+                        <td>URL backend API (Railway)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+td>
+
+        <div class="section">
+            <h2>📡 API Endpoints</h2>
+            
+            <h3>Authentication</h3>
+            <ul>
+                <li><code>POST /api/auth/register</code> - Đăng ký tài khoản mới</li>
+                <li><code>POST /api/auth/login</code> - Đăng nhập email/password</li>
+                <li><code>GET /api/auth/google</code> - Đăng nhập Google OAuth</li>
+                <li><code>GET /api/auth/google/callback</code> - Google OAuth callback</li>
+                <li><code>GET /api/auth/me</code> - Lấy thông tin user hiện tại</li>
+            </ul>
+
+            <h3>Meter Readings</h3>
+            <ul>
+                <li><code>GET /api/meter/readings</code> - Lấy danh sách chỉ số</li>
+                <li><code>POST /api/meter/readings</code> - Thêm chỉ số mới</li>
+                <li><code>POST /api/meter/ocr</code> - Upload ảnh và OCR</li>
+            </ul>
+
+            <h3>Rooms</h3>
+            <ul>
+                <li><code>GET /api/rooms</code> - Danh sách phòng</li>
+                <li><code>POST /api/rooms</code> - Tạo phòng mới</li>
+                <li><code>GET /api/rooms/:id</code> - Chi tiết phòng</li>
+                <li><code>PUT /api/rooms/:id</code> - Cập nhật phòng</li>
+                <li><code>DELETE /api/rooms/:id</code> - Xóa phòng</li>
+            </ul>
+
+            <h3>Payments</h3>
+            <ul>
+                <li><code>GET /api/payment/pending</code> - Hóa đơn chờ thanh toán</li>
+                <li><code>POST /api/payment/create</code> - Tạo link thanh toán PayOS</li>
+                <li><code>POST /api/payment/webhook</code> - PayOS webhook callback</li>
+            </ul>
+
+            <h3>AI Services</h3>
+            <ul>
+                <li><code>POST /api/ai/chat</code> - Chat với AI chatbot</li>
+                <li><code>POST /api/ai/tips</code> - Nhận gợi ý tiết kiệm điện</li>
+            </ul>
+
+            <h3>Admin</h3>
+            <ul>
+                <li><code>GET /api/admin/users</code> - Quản lý users</li>
+                <li><code>GET /api/admin/stats</code> - Thống kê hệ thống</li>
+                <li><code>GET /api/admin/revenue</code> - Báo cáo doanh thu</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎮 Gamification Features</h2>
+            
+            <h3>Check-in Hàng Ngày</h3>
+            <ul>
+                <li>Người dùng check-in mỗi ngày để nhận điểm</li>
+                <li>Streak bonus khi check-in liên tục nhiều ngày</li>
+                <li>Điểm tích lũy để đổi voucher</li>
+            </ul>
+
+            <h3>Cây Xanh 3D</h3>
+            <ul>
+                <li>Cây phát triển dựa trên mức tiết kiệm điện</li>
+                <li>Hiển thị 3D với Three.js</li>
+                <li>Động lực khuyến khích tiết kiệm năng lượng</li>
+            </ul>
+
+            <h3>Achievements & Rewards</h3>
+            <ul>
+                <li>Huy hiệu thành tích khi đạt mục tiêu</li>
+                <li>Bảng xếp hạng người tiết kiệm nhất</li>
+                <li>Voucher giảm giá cho người dùng xuất sắc</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📊 Analytics & Reporting</h2>
+            
+            <h3>Dashboard Tenant</h3>
+            <ul>
+                <li>Biểu đồ tiêu thụ điện theo ngày/tuần/tháng</li>
+                <li>So sánh với tháng trước</li>
+                <li>Dự đoán hóa đơn tháng này</li>
+                <li>Lịch sử thanh toán</li>
+            </ul>
+
+            <h3>Dashboard Landlord</h3>
+            <ul>
+                <li>Tổng doanh thu theo thời gian</li>
+                <li>Số lượng phòng và tỷ lệ lấp đầy</li>
+                <li>Danh sách hóa đơn chưa thanh toán</li>
+                <li>Thống kê tiêu thụ điện của từng phòng</li>
+            </ul>
+
+            <h3>Admin Analytics</h3>
+            <ul>
+                <li>Tổng quan toàn hệ thống</li>
+                <li>Số lượng users, landlords, tenants</li>
+                <li>Doanh thu từ subscriptions</li>
+                <li>Phân tích xu hướng sử dụng</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>💰 Subscription Plans</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gói</th>
+                        <th>Giá</th>
+                        <th>Tính Năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Gói Cơ Bản</strong></td>
+                        <td>Miễn phí</td>
+                        <td>
+                            • Quản lý tối đa 5 phòng<br>
+                            • Tính năng cơ bản<br>
+                            • Hỗ trợ email
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gói Professional</strong></td>
+                        <td>139,000đ/tháng</td>
+                        <td>
+                            • Quản lý tối đa 20 phòng<br>
+                            • AI insights<br>
+                            • Báo cáo chi tiết<br>
+                            • Hỗ trợ ưu tiên
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gói Enterprise</strong></td>
+                        <td>299,000đ/tháng</td>
+                        <td>
+                            • Không giới hạn phòng<br>
+                            • Tất cả tính năng Pro<br>
+                            • API access<br>
+                            • Hỗ trợ 24/7<br>
+                            • Custom branding
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Công Nghệ & Dependencies</h2>
+            
+            <h3>Frontend Dependencies</h3>
+            <ul>
+                <li><strong>react:</strong> ^18.2.0 - UI framework</li>
+                <li><strong>react-router-dom:</strong> ^6.21.3 - Routing</li>
+                <li><strong>zustand:</strong> ^4.5.0 - State management</li>
+                <li><strong>axios:</strong> ^1.6.7 - HTTP client</li>
+                <li><strong>recharts:</strong> ^2.12.0 - Charts library</li>
+                <li><strong>three:</strong> ^0.161.0 - 3D graphics</li>
+                <li><strong>@react-three/fiber:</strong> ^8.15.19 - React renderer for Three.js</li>
+                <li><strong>lucide-react:</strong> ^0.323.0 - Icons</li>
+                <li><strong>tailwindcss:</strong> ^3.4.1 - CSS framework</li>
+            </ul>
+
+            <h3>Backend Dependencies</h3>
+            <ul>
+                <li><strong>express:</strong> ^4.18.2 - Web framework</li>
+                <li><strong>mongoose:</strong> ^8.7.0 - MongoDB ODM</li>
+                <li><strong>passport:</strong> ^0.7.0 - Authentication</li>
+                <li><strong>passport-google-oauth20:</strong> ^2.0.0 - Google OAuth</li>
+                <li><strong>jsonwebtoken:</strong> ^9.0.2 - JWT tokens</li>
+                <li><strong>bcryptjs:</strong> ^2.4.3 - Password hashing</li>
+                <li><strong>multer:</strong> ^1.4.5 - File upload</li>
+                <li><strong>tesseract.js:</strong> ^7.0.0 - OCR engine</li>
+                <li><strong>groq-sdk:</strong> ^0.37.0 - AI chatbot</li>
+                <li><strong>@payos/node:</strong> ^2.0.4 - Payment gateway</li>
+                <li><strong>cors:</strong> ^2.8.5 - CORS middleware</li>
+                <li><strong>dotenv:</strong> ^16.4.1 - Environment variables</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔄 Workflow & User Journey</h2>
+            
+            <h3>Tenant Journey</h3>
+            <ol>
+                <li><strong>Đăng ký/Đăng nhập:</strong> Email hoặc Google OAuth</li>
+                <li><strong>Chọn vai trò:</strong> Tenant (người thuê)</li>
+                <li><strong>Được assign phòng:</strong> Landlord gán phòng cho tenant</li>
+                <li><strong>Xem dashboard:</strong> Theo dõi tiêu thụ điện nước</li>
+                <li><strong>Chụp đồng hồ:</strong> Upload ảnh, OCR tự động đọc số</li>
+                <li><strong>Nhận hóa đơn:</strong> Hệ thống tính toán tự động</li>
+                <li><strong>Thanh toán:</strong> PayOS online payment</li>
+                <li><strong>Check-in hàng ngày:</strong> Nhận điểm thưởng</li>
+                <li><strong>Nhận gợi ý AI:</strong> Tips tiết kiệm điện</li>
+            </ol>
+
+            <h3>Landlord Journey</h3>
+            <ol>
+                <li><strong>Đăng ký/Đăng nhập:</strong> Email hoặc Google OAuth</li>
+                <li><strong>Chọn vai trò:</strong> Landlord (chủ nhà)</li>
+                <li><strong>Chọn gói subscription:</strong> Cơ bản/Pro/Enterprise</li>
+                <li><strong>Tạo phòng trọ:</strong> Thêm thông tin phòng</li>
+                <li><strong>Thêm tenant:</strong> Gán người thuê vào phòng</li>
+                <li><strong>Nhập chỉ số:</strong> Cập nhật số điện nước hàng tháng</li>
+                <li><strong>Tạo hóa đơn:</strong> Hệ thống tự động tính tiền</li>
+                <li><strong>Theo dõi thanh toán:</strong> Xem trạng thái hóa đơn</li>
+                <li><strong>Xem báo cáo:</strong> Analytics và doanh thu</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>🛡️ Security Best Practices</h2>
+            <ul>
+                <li>✅ Password hashing với bcrypt (10 rounds)</li>
+                <li>✅ JWT tokens với expiration time</li>
+                <li>✅ CORS configuration cho production domains</li>
+                <li>✅ Environment variables cho sensitive data</li>
+                <li>✅ Input validation với Zod</li>
+                <li>✅ MongoDB injection prevention</li>
+                <li>✅ Rate limiting (có thể thêm)</li>
+                <li>✅ HTTPS cho tất cả connections</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📱 Responsive Design</h2>
+            <ul>
+                <li>Mobile-first approach với Tailwind CSS</li>
+                <li>Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)</li>
+                <li>Touch-friendly UI cho mobile devices</li>
+                <li>Optimized cho cả desktop và mobile</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>⚠️ Known Issues & Limitations</h2>
+            
+            <div class="warning-box">
+                <strong>Google OAuth:</strong><br>
+                • Cần cấu hình đúng redirect URI trong Google Cloud Console<br>
+                • Callback URL phải khớp chính xác với Railway domain<br>
+                • Có thể mất 5-10 phút để Google cập nhật cấu hình mới
+            </div>
+
+            <div class="warning-box">
+                <strong>OCR Accuracy:</strong><br>
+                • Độ chính xác phụ thuộc vào chất lượng ảnh<br>
+                • Cần ảnh rõ nét, đủ sáng<br>
+                • Đồng hồ điện phải hiển thị rõ ràng
+            </div>
+
+            <div class="warning-box">
+                <strong>Real-time Chat:</strong><br>
+                • Hiện tại dùng HTTP polling thay vì WebSocket<br>
+                • Vercel không hỗ trợ WebSocket tốt<br>
+                • Có thể nâng cấp lên Socket.io với Railway
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Future Enhancements</h2>
+            <ul>
+                <li>📱 Mobile app (React Native)</li>
+                <li>🔔 Push notifications</li>
+                <li>📧 Email notifications cho hóa đơn</li>
+                <li>📊 Advanced analytics với ML predictions</li>
+                <li>🌐 Multi-language support (i18n)</li>
+                <li>💬 Real-time chat với WebSocket</li>
+                <li>📱 SMS notifications</li>
+                <li>🔗 API cho third-party integrations</li>
+                <li>📈 Export reports (PDF, Excel)</li>
+                <li>🎨 Custom themes cho landlords</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📞 Support & Contact</h2>
+            <div class="info-box">
+                <strong>Production URLs:</strong><br>
+                • Frontend: <span class="url">https://greenenergy-frontend.vercel.app</span><br>
+                • Backend API: <span class="url">https://greenai-production.up.railway.app</span><br>
+                • API Health Check: <span class="url">https://greenai-production.up.railway.app/api/health</span>
+            </div>
+
+            <div class="info-box">
+                <strong>Admin Access:</strong><br>
+                • Email: <code>admin@greenenergy.com</code><br>
+                • Password: <code>admin123</code><br>
+                • Dashboard: <span class="url">https://greenenergy-frontend.vercel.app/admin</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📝 Version History</h2>
+            <ul>
+                <li><strong>v1.0.0 (March 2026):</strong> Initial production deployment</li>
+                <li>✅ Frontend deployed to Vercel</li>
+                <li>✅ Backend deployed to Railway</li>
+                <li>✅ MongoDB Atlas integration</li>
+                <li>✅ Google OAuth configured</li>
+                <li>✅ PayOS payment integration</li>
+                <li>✅ AI features (OCR + Chatbot)</li>
+                <li>✅ Admin dashboard</li>
+                <li>✅ Gamification features</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e5e7eb; text-align: center; color: #6b7280;">
+            <p><strong>GreenEnergy AI</strong> - Hệ Thống Quản Lý Điện Năng Thông Minh</p>
+            <p>© 2026 - Tài liệu được tạo tự động</p>
+        </div>
+
+    </div>
+</body>
+</html>
