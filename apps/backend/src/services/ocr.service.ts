@@ -48,28 +48,19 @@ export class OCRService {
         }
       }
 
-      // Clean text: remove all non-digit characters except dots
-      const cleanedText = text.replace(/[^\d.]/g, '')
-      console.log('🧹 Cleaned Text:', cleanedText)
-
-      // Extract all numbers from cleaned text
-      const numbers = cleanedText.match(/\d+\.?\d*/g)
+      // Extract numbers from original text (before cleaning)
+      // This preserves word boundaries
+      const numbersFromOriginal = text.match(/\d+\.?\d*/g) || []
       
-      if (!numbers || numbers.length === 0) {
-        console.log('⚠️ No numbers found in OCR')
-        return {
-          value: 0,
-          confidence: 0
-        }
-      }
+      console.log('🔢 Numbers from original text:', numbersFromOriginal)
 
       // Parse all numbers and filter valid readings
-      const readings = numbers
+      const readings = numbersFromOriginal
         .map(n => parseFloat(n))
-        .filter(n => !isNaN(n) && n > 0 && n < 999999) // Reasonable meter reading range
+        .filter(n => !isNaN(n) && n >= 10 && n < 999999) // Reasonable meter reading range (at least 2 digits)
         .sort((a, b) => b - a) // Sort descending
 
-      console.log('🔢 All detected numbers:', readings)
+      console.log('✅ Valid readings:', readings)
 
       if (readings.length === 0) {
         console.log('⚠️ No valid readings found')
@@ -83,14 +74,11 @@ export class OCRService {
       // Meter readings are typically 3-6 digits
       let value = readings[0]
       
-      // If the largest number is too small (< 100), try to combine digits
-      if (value < 100 && readings.length > 1) {
-        // Try to form a larger number from consecutive digits
-        const combined = parseFloat(readings.join(''))
-        if (combined > 100 && combined < 999999) {
-          value = combined
-          console.log('🔄 Combined digits to form:', value)
-        }
+      // Prefer numbers with 3-6 digits
+      const preferredReadings = readings.filter(n => n >= 100 && n <= 999999)
+      if (preferredReadings.length > 0) {
+        value = preferredReadings[0]
+        console.log('🎯 Selected preferred reading:', value)
       }
 
       // Get confidence from OCR result (0-100 scale)
