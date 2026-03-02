@@ -28,12 +28,14 @@ export const uploadMeterImage = async (req: AuthRequest, res: Response) => {
     // Check if OCR failed
     if (mockReading === 0 && confidence === 0) {
       return res.status(400).json({ 
-        error: 'Could not read meter from image. Please try again with a clearer photo or enter manually.',
+        error: 'Không thể đọc được số từ ảnh. Vui lòng thử lại với ảnh rõ hơn hoặc nhập thủ công.',
         tips: [
-          'Ensure good lighting',
-          'Take photo straight on',
-          'Make sure numbers are clear and in focus',
-          'Clean the meter glass before taking photo'
+          '✅ Đảm bảo ánh sáng đủ sáng',
+          '✅ Chụp thẳng góc với đồng hồ',
+          '✅ Số phải rõ ràng và trong tiêu cự',
+          '✅ Lau sạch mặt kính đồng hồ',
+          '✅ Ảnh không quá nhỏ (tối thiểu 300x300px)',
+          '✅ Zoom vào số trước khi chụp'
         ]
       })
     }

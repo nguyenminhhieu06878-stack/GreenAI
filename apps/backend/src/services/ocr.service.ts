@@ -27,6 +27,10 @@ export class OCRService {
             if (m.status === 'recognizing text') {
               console.log(`OCR Progress: ${Math.round(m.progress * 100)}%`)
             }
+          },
+          // Add error handler
+          errorHandler: (err) => {
+            console.error('OCR Error during processing:', err.message)
           }
         }
       )
@@ -34,6 +38,15 @@ export class OCRService {
       const text = result.data.text.trim()
       console.log('📝 OCR Raw Text:', text)
       console.log('📊 OCR Confidence:', result.data.confidence)
+
+      // If text is empty or confidence too low, return error
+      if (!text || text.length === 0) {
+        console.log('⚠️ OCR returned empty text')
+        return {
+          value: 0,
+          confidence: 0
+        }
+      }
 
       // Clean text: remove all non-digit characters except dots
       const cleanedText = text.replace(/[^\d.]/g, '')
@@ -93,8 +106,18 @@ export class OCRService {
         value: Math.round(value), // Round to integer for meter readings
         confidence: Math.max(0.3, Math.min(1, confidence)) // Clamp between 0.3 and 1
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ OCR Error:', error)
+      
+      // Handle specific errors
+      if (error.message && error.message.includes('Image too small')) {
+        console.error('Image is too small for OCR processing')
+        return {
+          value: 0,
+          confidence: 0
+        }
+      }
+      
       return {
         value: 0,
         confidence: 0
